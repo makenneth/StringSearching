@@ -1,4 +1,3 @@
-require 'byebug'
 def knuth_morris_pratt(text, pattern)
   prefix_table = generate_prefix_table(pattern)
   a, j = 0, 0
@@ -35,10 +34,4 @@ def generate_prefix_table(pattern)
   end
 
   prefix
-end
-
-if __FILE__ == $PROGRAM_NAME
-  pat = "ATCAAT"
-  text = "AGCATCAGAAGTCATCAAT"
-  knuth_morris_pratt(text, pat)
 end
