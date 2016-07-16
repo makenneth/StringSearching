@@ -22,17 +22,16 @@ class TernarySearchTries
     cur_char = str[cur_pos]
     node = Node.new(cur_char) unless node
 
-    if cur_pos == str.length - 1
-      node.value = value
-      return node
-    end
-
-    if cur_char == node.char
-      node.middle = put(str, value, node.middle, cur_pos + 1)
+    if cur_char > node.char
+      node.right = put(str, value, node.right, cur_pos)
     elsif cur_char < node.char
       node.left = put(str, value, node.left, cur_pos)
     else
-      node.right = put(str, value, node.right, cur_pos)
+      if str.length - 1 > cur_pos
+        node.middle = put(str, value, node.middle, cur_pos + 1)
+      else
+        node.value = value
+      end
     end
 
     node
@@ -42,14 +41,17 @@ class TernarySearchTries
     cur_char = str[cur_pos]
 
     return nil unless node
-    return node.value if cur_pos == str.length - 1 && cur_char == str[cur_pos]
 
-    if cur_char == node.char
-      get(str, node.middle, cur_pos + 1)
+    if cur_char > node.char
+      get(str, node.right, cur_pos)
     elsif cur_char < node.char
       get(str, node.left, cur_pos)
     else
-      get(str, node.right, cur_pos)
+      if str.length - 1 > cur_pos
+        get(str, node.middle, cur_pos + 1)
+      else
+        node.value
+      end
     end
   end
 end
